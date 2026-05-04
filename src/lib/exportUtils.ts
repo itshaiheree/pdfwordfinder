@@ -175,9 +175,11 @@ export async function exportToWord(
   });
 
   const buffer = await Packer.toBuffer(doc);
-  const blob = new Blob([buffer], {
-    type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-  });
+const uint8 = new Uint8Array(buffer);
+
+const blob = new Blob([uint8], {
+  type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+
   const { saveAs } = await import("file-saver");
   saveAs(blob, `hasil-pencarian-${keyword}.docx`);
 }
