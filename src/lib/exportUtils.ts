@@ -8,16 +8,14 @@ export async function exportToTXT(
   filename: string
 ): Promise<void> {
   const lines = [
-    `Hasil Pencarian Kata: "${keyword}"`,
-    `File: ${filename}`,
-    `Ditemukan: ${results.length} hasil`,
-    `Tanggal: ${new Date().toLocaleString("id-ID")}`,
-    "=".repeat(60),
-    "",
-    ...results.map((r) => `Line ${r.lineNumber}\n${r.lineText}`).join("\n\n"),
-  ];
+  `Keyword: ${keyword}`,
+  `Found: ${results.length} matches`,
+  "=".repeat(60),
+  "",
+  ...results.map((r) => `Line ${r.lineNumber}\n${r.lineText}`),
+];
 
-  const content = lines.join("\n");
+  const content = lines.join("\n\n");
   const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
   const { saveAs } = await import("file-saver");
   saveAs(blob, `hasil-pencarian-${keyword}.txt`);
